@@ -6839,7 +6839,7 @@ insert into aeropuertos values ("SKC","Suki Airport","Suki, Papua New Guinea");
 insert into aeropuertos values ("SKD","Samarkand International Airport","Samarkand, Uzbekistan");
 insert into aeropuertos values ("SKE","Skien Airport, Geiteryggen","Skien, Norway");
 insert into aeropuertos values ("SKF","Kelly Field Annex / Lackland Air Force Base","San Antonio, Texas, United States");
-insert into aeropuertos values ("SKG","Thessaloniki Airport "Macedonia"","Thessaloniki, Greece");
+insert into aeropuertos values ("SKG","Thessaloniki Airport Macedonia","Thessaloniki, Greece");
 insert into aeropuertos values ("SKH","Surkhet Airport","Surkhet, Nepal");
 insert into aeropuertos values ("SKI","Skikda Airport","Skikda, Algeria");
 insert into aeropuertos values ("SKK","Shaktoolik Airport (FAA: 2C7)","Shaktoolik, Alaska, United States");
