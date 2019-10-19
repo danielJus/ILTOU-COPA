@@ -16,7 +16,7 @@ var Distance = function(Distance) {
 
 Airport.getAllAirport = (req, result) => {
   const {
-    query: { page, perPage, nombre }
+    query: { page, perPage }
   } = req;
 
   const from = parseInt(page) * parseInt(perPage);
@@ -24,8 +24,7 @@ Airport.getAllAirport = (req, result) => {
   // let query = `SELECT * FROM aeropuertos LIMIT ${from},${parseInt(perPage)}`;
 
   let query = `SELECT * FROM aeropuertos `;
-  if (nombre) query += `WHERE Airport LIKE %"${nombre}"%`;
-  if (!nombre) query += `LIMIT ${from},${parseInt(perPage)}`;
+  query += `LIMIT ${from},${parseInt(perPage)}`;
 
   sql.query(query, (err, res) => {
     if (err) {
