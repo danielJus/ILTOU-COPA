@@ -24,7 +24,7 @@ Airport.getAllAirport = (req, result) => {
   // let query = `SELECT * FROM aeropuertos LIMIT ${from},${parseInt(perPage)}`;
 
   let query = `SELECT * FROM aeropuertos `;
-  if (nombre) query += `WHERE Airport LIKE %${nombre}% `;
+  if (nombre) query += `WHERE Airport LIKE %"${nombre}"% `;
   query += `LIMIT ${from},${parseInt(perPage)}`;
 
   sql.query(query, (err, res) => {
