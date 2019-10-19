@@ -38,14 +38,11 @@ Airport.getAllAirport = (req, result) => {
 
 Distance.getAllDistance = (req, result) => {
 	const {
-		query: { page, perPage, from, to },
+		query: { from, to },
 	} = req
 
-	const from = page * perPage
-
 	let query = `SELECT * FROM aeropuertos `
-	if (from && to) query += `WHERE ORIG_CD = ${from} AND DEST_CD = ${to} `
-	query += `LIMIT ${from},${perPage}`
+	if (from && to) query += `WHERE ORIG_CD = ${from} AND DEST_CD = ${to}`
 
 	sql.query(query, (err, res) => {
 		if (err) {
