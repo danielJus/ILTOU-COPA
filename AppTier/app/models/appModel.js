@@ -1,59 +1,57 @@
-'user strict'
-var sql = require('./db.js')
+"user strict";
+var sql = require("./db.js");
 
 //Airport object constructor
 var Airport = function(Airport) {
-	this.Airport = Airport.Airport
-	this.status = Airport.status
-	this.created_at = new Date()
-}
+  this.Airport = Airport.Airport;
+  this.status = Airport.status;
+  this.created_at = new Date();
+};
 
 var Distance = function(Distance) {
-	this.Distance = Distance.Distance
-	this.status = Distance.status
-	this.created_at = new Date()
-}
+  this.Distance = Distance.Distance;
+  this.status = Distance.status;
+  this.created_at = new Date();
+};
 
 Airport.getAllAirport = (req, result) => {
-	const {
-		query: { page, perPage, nombre },
-	} = req
+  const {
+    query: { page, perPage }
+  } = req;
 
-	const from = page * perPage
+  const from = parseInt(page) * parseInt(perPage);
+  console.log(from, perPage, "FORM PERPAGE");
+  let query = `SELECT * FROM aeropuertos LIMIT ${from},${parseInt(perPage)}`;
 
-	let query = `SELECT * FROM aeropuertos `
-	if (nombre) query += `WHERE Airport LIKE %${nombre}% `
-	query += `LIMIT ${from},${perPage}`
-
-	sql.query(query, (err, res) => {
-		if (err) {
-			console.error('error: ', err)
-			result(null, err)
-		} else {
-			console.log('Airports : ', res)
-			result(null, { airports: res })
-		}
-	})
-}
+  sql.query(query, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      result(null, err);
+    } else {
+      console.log("Airports : ", res);
+      result(null, { airports: res });
+    }
+  });
+};
 
 Distance.getAllDistance = (req, result) => {
-	const {
-		query: { from, to },
-	} = req
+  const {
+    query: { from, to }
+  } = req;
+  console.log(from, to, "FROM TO");
+  let query = `SELECT * FROM distances `;
+  if (from && to) query += `WHERE ORIG_CD = ${from} AND DEST_CD = ${to}`;
 
-	let query = `SELECT * FROM aeropuertos `
-	if (from && to) query += `WHERE ORIG_CD = ${from} AND DEST_CD = ${to}`
+  sql.query(query, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      result(null, err);
+    } else {
+      console.log("Distance : ", res);
+      result(null, { distance: res });
+    }
+  });
+};
 
-	sql.query(query, (err, res) => {
-		if (err) {
-			console.error('error: ', err)
-			result(null, err)
-		} else {
-			console.log('Distance : ', res)
-			result(null, { distance: res })
-		}
-	})
-}
-
-module.exports.Airport = Airport
-module.exports.Distance = Distance
+module.exports.Airport = Airport;
+module.exports.Distance = Distance;
