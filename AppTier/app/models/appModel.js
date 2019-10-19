@@ -16,8 +16,7 @@ var Distance = function(Distance) {
 
 Airport.getAllAirport = (req, result) => {
 	const {
-		params: { page, perPage },
-		query: { nombre },
+		query: { page, perPage, nombre },
 	} = req
 
 	const from = page * perPage
@@ -39,8 +38,7 @@ Airport.getAllAirport = (req, result) => {
 
 Distance.getAllDistance = (req, result) => {
 	const {
-		params: { page, perPage },
-		query: { from, to },
+		query: { page, perPage, from, to },
 	} = req
 
 	const from = page * perPage

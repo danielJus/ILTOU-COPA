@@ -3,11 +3,11 @@ module.exports = function(app) {
 	var Airports = require('../controller/appController.js')
 	var Distance = require('../controller/appController.js')
 
-	app.get('/airports/:page/:perPage', (req, res) => {
+	app.get('/airports', (req, res) => {
 		Airports.list_all_Airports(req, res)
 	})
 
-	app.get('/distances/:page/:perPage', function(req, res) {
+	app.get('/distances', function(req, res) {
 		Distance.list_all_Distances(req, res)
 	})
 
