@@ -1,54 +1,64 @@
-'user strict';
-var sql = require('./db.js');
+'user strict'
+var sql = require('./db.js')
 
 //Airport object constructor
 var Airport = function(Airport) {
-  this.Airport = Airport.Airport;
-  this.status = Airport.status;
-  this.created_at = new Date();
-};
+	this.Airport = Airport.Airport
+	this.status = Airport.status
+	this.created_at = new Date()
+}
 
 var Distance = function(Distance) {
-  this.Distance = Distance.Distance;
-  this.status = Distance.status;
-  this.created_at = new Date();
-};
+	this.Distance = Distance.Distance
+	this.status = Distance.status
+	this.created_at = new Date()
+}
 
-Airport.getAllAirport = function(result) {
-  sql.query('Select * from aeropuertos', function(err, res) {
-    if (err) {
-      console.log('error: ', err);
-      result(null, err);
-    } else {
-      console.log('Airports : ', res);
+Airport.getAllAirport = (req, result) => {
+	const {
+		params: { page, perPage },
+		query: { nombre },
+	} = req
 
-      result(null, {airports :res});
-    }
-  });
-};
+	const from = page * perPage
 
-Distance.getAllDistance = function(req, result) {
-  var query = 'Select * from distancias';
-  if (req.query.from && req.query.to) {
-    query =
-      query +
-      " where ORIG_CD = '" +
-      req.query.from +
-      "' AND DEST_CD = '" +
-      req.query.to +
-      "'";
-  }
-  console.log('query:', query);
-  sql.query(query, function(err, res) {
-    if (err) {
-      console.log('error: ', err);
-      result(null, err);
-    } else {
-      console.log('Distance : ', res);
+	let query = `SELECT * FROM aeropuertos `
+	if (nombre) query += `WHERE Airport LIKE %${nombre}% `
+	query += `LIMIT ${from},${perPage}`
 
-      result(null, {distance: {distanceList: res}});
-    }
-  });
-};
-module.exports.Airport = Airport;
-module.exports.Distance = Distance;
+	sql.query(query, (err, res) => {
+		if (err) {
+			console.error('error: ', err)
+			result(null, err)
+		} else {
+			console.log('Airports : ', res)
+			result(null, { airports: res })
+		}
+	})
+}
+
+Distance.getAllDistance = (req, result) => {
+	const {
+		params: { page, perPage },
+		query: { from, to },
+	} = req
+
+	const from = page * perPage
+
+	let query = `SELECT * FROM aeropuertos `
+	if (from && to) query += `WHERE ORIG_CD = ${from} AND DEST_CD = ${to} `
+	query += `LIMIT ${from},${perPage}`
+
+	sql.query(query, (err, res) => {
+		if (err) {
+			console.error('error: ', err)
+			result(null, err)
+		} else {
+			console.log('Distance : ', res)
+			result(null, { distance: { distanceList: res } })
+		}
+	})
+}
+
+module.exports.Airport = Airport
+module.exports.Distance = Distance
