@@ -50,7 +50,7 @@ Distance.getAllDistance = (req, result) => {
 			result(null, err)
 		} else {
 			console.log('Distance : ', res)
-			result(null, { distance: { distanceList: res } })
+			result(null, { distance: res })
 		}
 	})
 }
