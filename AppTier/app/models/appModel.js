@@ -39,7 +39,7 @@ Distance.getAllDistance = (req, result) => {
     query: { from, to }
   } = req;
   console.log(from, to, "FROM TO");
-  let query = `SELECT * FROM distancias WHERE O&D ="${from}-${to}"`;
+  let query = `SELECT * FROM distancias WHERE "O&D" ="${from}-${to}"`;
 
   sql.query(query, (err, res) => {
     if (err) {
