@@ -16,7 +16,7 @@ var Distance = function(Distance) {
 
 Airport.getAllAirport = (req, result) => {
   const {
-    query: { page, perPage }
+    query: { page, perPage, nombre }
   } = req;
 
   const from = parseInt(page) * parseInt(perPage);
